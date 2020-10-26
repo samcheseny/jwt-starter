@@ -55,6 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
                 .addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers("/api-docs/**", "/swagger-ui/**","/swagger-ui.html/**")
+                .permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/users/**")
                 .permitAll()
                 .anyRequest()
